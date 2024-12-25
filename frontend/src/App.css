@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.banner {
+  background-image: url('./assets/bg-desktop-dark.jpg');
+  width: 100%;
+  height: 250px;
+}
+
+#area {
+  /* background-color: black; */
+  display: grid;
+  gap: 1rem;
+  width: 40%;
+  margin: 0 auto;
+  margin-top: -200px;
+  z-index: 99;
+  position: relative;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 1rem;
+  }
+
+  .input {
+    display: flex;
+    justify-content: space-between;
+    background-color: blue;
+    padding: .5rem;
+    border-radius: .5rem;
+
+    input:first-child {
+      background-color: transparent;
+      width: 5%;
+      height: 2.5rem;
+      /* font-size: large; */
+      /* border: 1px solid white; */
+      border-radius: 100%;
+      /* outline: none; */
+      margin: 0 auto;
+    }
+
+    input:last-child {
+      background-color: transparent;
+      width: 90%;
+      height: 2.5rem;
+      font-size: large;
+      border: none;
+      outline: none;
+    }
+  }
+
+  #todoList {
+    display: grid;
+    border-radius: .5rem;
+    overflow: hidden;
+    
+    .todo {
+      border-bottom: 2px solid red;
+      height: 2rem;
+      padding: .5rem 1.5rem .5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        width: 100%;
+
+        input {
+          width: 5%;
+          height: 1rem;
+          border: none;
+          outline: none;
+        }
+  
+        p {
+          width: 90%;
+          text-wrap: wrap;
+        }
+      }
+
+      img:hover {
+        cursor: pointer;
+      }
+    }
+
+    .base {
+      background-color: blue;
+      height: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      font-size: small;
+      padding: 0 1.5rem;
+
+      .filter {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .banner {
+    width: 100%;
+    /* background-position: center; */
+    background-repeat: no-repeat;
+    /* background-size: auto; */
+    height: 200px;
+    background-image: url('./assets/bg-mobile-dark.jpg');
+  }
+
+  #area {
+    width: 90%;
+    /* height: 50vh; */
+    margin-top: -150px;
+
+    #todoList {
+
+      .base {
+
+        .filter {
+          display: none;
+        }
+      }
+    }
+  }
+}
