@@ -14,7 +14,7 @@ import { useTodo } from './context/todo'
 // }
 
 const App: React.FC = () => {
-  const { todo, addTodo } = useTodo();
+  const { todo, addTodo, setLight } = useTodo();
 
   return (
     <main>
@@ -24,7 +24,7 @@ const App: React.FC = () => {
         <div id='area'>
           <div className='header'>
             <p>TODO</p>
-            <img src={dark_theme} alt="theme" />
+            <img src={dark_theme} alt="theme" onClick={() => setLight(true)} />
           </div>
 
           <div className='input'>

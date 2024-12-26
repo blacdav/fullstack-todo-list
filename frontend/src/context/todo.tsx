@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useReducer } from "react";
+import React, { createContext, ReactNode, useContext, useReducer, useState } from "react";
 
 interface TodoContextType {
     todo: Todos[],
@@ -7,6 +7,8 @@ interface TodoContextType {
     // removeTodo: (id: number) => void,
     // completeAllTodos: () => void,
     // clearCompletedTodos: () => void,
+    light: boolean,
+    setLight:  React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface Children {
@@ -46,13 +48,14 @@ const todoState: Todos[] = []
 
 export const TodoProvider: React.FC<Children> = ({ children }) => {
     const [todo, dispatch] = useReducer(todoAction, todoState);
+    const [light, setLight] = useState<boolean>(false)
 
     const addTodo = (text: string) => {
         dispatch({type: ACTIONS.ADD_TODO, payload: { text }})
     }
 
     return (
-        <TodoContext.Provider value={{todo, addTodo}}>
+        <TodoContext.Provider value={{todo, addTodo, light, setLight}}>
             { children }
         </TodoContext.Provider>
     )
