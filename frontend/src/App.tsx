@@ -19,10 +19,10 @@ import { useTodo } from './context/todo'
 // }
 
 const App: React.FC = () => {
-  const { todo, addTodo, removeTodo, light, setLight, newTodo, setNewTodo } = useTodo();
+  const { todo, addTodo, removeTodo, completeTodo, allTodo, activeTodos, completedTodos, light, setLight, newTodo, setNewTodo } = useTodo();
 
   return (
-    <main id={`${!light ? 'main_dark' : ''}`}>
+    <main id={`${!light ? 'main_dark' : 'main_light'}`}>
       <section className={`${!light ? 'banner_dark' : 'banner_light'}`}></section>
 
       <section>
@@ -40,7 +40,7 @@ const App: React.FC = () => {
           <div className={`${todo.length === 0 ? 'hidden' : 'todoList'}`} style={!light ? {backgroundColor: 'hsl(235, 24%, 19%)'} : {backgroundColor: 'hsl(0, 0%, 98%)'}}>
             {
               todo.map((t) => (
-                <div key={t.text} className='todo'>
+                <div key={t.text} className='todo' onClick={() => completeTodo(t.text!)}>
                   <div>
                     <input type="radio" name="todo" id="" value={t.text} />
                     <p>{t.text}</p>
@@ -53,9 +53,9 @@ const App: React.FC = () => {
             <div className='base' style={!light? {backgroundColor: 'hsl(235, 24%, 19%)'} : {backgroundColor: 'hsl(0, 0%, 98%)'}}>
               <p>{todo.length} items left</p>
               <div className='filter'>
-                <p>All</p>
-                <p>Active</p>
-                <p>Completed</p>
+                <p onClick={() => allTodo()}>All</p>
+                <p onClick={() => activeTodos()}>Active</p>
+                <p onClick={() => completedTodos()}>Completed</p>
               </div>
               <p>Clear Completed</p>
             </div>

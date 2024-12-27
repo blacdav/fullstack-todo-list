@@ -11,8 +11,7 @@
 
 #main_light {
     height: 100vh;
-    background-color: navy;
-    color: black;
+    background-color: hsl(0, 0%, 98%);
 }
   
 .banner_dark {
@@ -122,6 +121,7 @@
             font-weight: bold;
             font-size: small;
             padding: 0 1.5rem;
+            color: hsl(236, 9%, 61%);
 
             .filter {
                 display: flex;
