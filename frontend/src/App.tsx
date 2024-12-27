@@ -13,8 +13,13 @@ import { useTodo } from './context/todo'
 //   completed?: boolean,
 // }
 
+// interface TodoState {
+//   newTodo: string,
+//   setNewTodo: React.Dispatch<React.SetStateAction<undefined>>
+// }
+
 const App: React.FC = () => {
-  const { todo, addTodo, setLight } = useTodo();
+  const { todo, addTodo, removeTodo, setLight, newTodo, setNewTodo } = useTodo();
 
   return (
     <main>
@@ -29,29 +34,22 @@ const App: React.FC = () => {
 
           <div className='input'>
             <input type="checkbox" name="" id="" />
-            <input type="text" placeholder='Create a new todo...' onChange={(e) => addTodo(e.target.value)} />
+            <input type="text" placeholder='Create a new todo...' value={newTodo} onChange={(e) => setNewTodo(e.target.value)} onKeyDown={(e) => addTodo(e)} />
           </div>
 
           <div id='todoList'>
             {
               todo.map((t) => (
-                <div key={t.id} className='todo'>
+                <div key={t.text} className='todo'>
                   <div>
-                    <input type="radio" name="" id="" />
+                    <input type="radio" name="todo" id="" value={t.text} />
                     <p>{t.text}</p>
                   </div>
-                  <img src={remove_icon} alt="remove icon" width={10} />
+                  <img src={remove_icon} alt="remove icon" width={10} onClick={() => removeTodo(t.text!)} />
                 </div>
               ))
             }
-            <div className='todo'>
-              <div>
-                <input type="radio" name="" id="" />
-                <p>item 2</p>
-              </div>
-              <p>X</p>
-            </div>
-           
+            
             <div className='base'>
               <p>5 items left</p>
               <div className='filter'>

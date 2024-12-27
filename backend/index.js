@@ -9,8 +9,6 @@ mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
 }).then(() => console.log('Connected to MongoDB')).catch((err) => console.error(err));
 
-
-
 const app = express();
 
 app.use((req, res, next)  => {
@@ -23,12 +21,12 @@ app.use((req, res, next)  => {
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.get('/todoList', (req, res) => {
+app.get('/', (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World');
+  res.end('Hello David');
 })
 
-app.post("/todoList", (req, res) => {
+app.post("/", (req, res) => {
   const data = req.body;
   const todo = new Todos(data).save().then(() => {
     console.log('added successfully')
