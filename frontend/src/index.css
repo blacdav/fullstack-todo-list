@@ -3,13 +3,26 @@
     padding: 0;
 }
 
-main {
+#main_dark {
+    height: 100vh;
+    background-color: hsl(235, 21%, 11%);
+    color: hsl(236, 9%, 61%);
+}
+
+#main_light {
     height: 100vh;
     background-color: navy;
+    color: black;
 }
   
-.banner {
+.banner_dark {
     background-image: url('./assets/bg-desktop-dark.jpg');
+    width: 100%;
+    height: 250px;
+}
+
+.banner_light {
+    background-image: url('./assets/bg-desktop-light.jpg');
     width: 100%;
     height: 250px;
 }
@@ -30,12 +43,12 @@ main {
         font-size: 3rem;
         font-weight: bold;
         letter-spacing: 1rem;
+        color: white;
     }
 
     .input {
         display: flex;
         justify-content: space-between;
-        background-color: blue;
         padding: .5rem;
         border-radius: .5rem;
 
@@ -43,10 +56,7 @@ main {
             background-color: transparent;
             width: 5%;
             height: 2.5rem;
-            /* font-size: large; */
-            /* border: 1px solid white; */
             border-radius: 100%;
-            /* outline: none; */
             margin: 0 auto;
         }
 
@@ -60,13 +70,17 @@ main {
         }
     }
 
-    #todoList {
+    .hidden {
+        display: none;
+    }
+
+    .todoList {
         display: grid;
         border-radius: .5rem;
         overflow: hidden;
 
         .todo {
-            border-bottom: 2px solid red;
+            border-bottom: 1px solid hsl(235, 19%, 35%);
             height: 2rem;
             padding: .5rem 1.5rem .5rem 1rem;
             display: flex;
@@ -99,7 +113,7 @@ main {
         }
 
         .base {
-            background-color: blue;
+            /* background-color: ; */
             height: 2.5rem;
             display: flex;
             justify-content: space-between;
@@ -118,25 +132,29 @@ main {
 }
   
 @media (max-width: 375px) {
-    .banner {
+    .banner_dark {
         width: 100%;
-        /* background-position: center; */
         background-repeat: no-repeat;
-        /* background-size: auto; */
         height: 200px;
         background-image: url('./assets/bg-mobile-dark.jpg');
     }
 
+    .banner_light {
+        width: 100%;
+        background-repeat: no-repeat;
+        height: 200px;
+        background-image: url('./assets/bg-mobile-light.jpg');
+    }
+
     #area {
         width: 90%;
-        /* height: 50vh; */
         margin-top: -150px;
 
-        #todoList {
+        .todoList {
             .base {
-            .filter {
-            display: none;
-            }
+                .filter {
+                    display: none;
+                }
         }
         }
     }

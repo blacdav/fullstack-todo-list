@@ -2,7 +2,7 @@
 // import banner_dark from './assets/bg-desktop-dark.jpg';
 // import banner_light from './assets/bg-desktop-light.jpg';
 import dark_theme from './assets/icon-moon.svg'
-// import light_theme from './assets/icon-sun.svg'
+import light_theme from './assets/icon-sun.svg'
 import remove_icon from './assets/icon-cross.svg'
 import './App.css'
 import { useTodo } from './context/todo'
@@ -19,25 +19,25 @@ import { useTodo } from './context/todo'
 // }
 
 const App: React.FC = () => {
-  const { todo, addTodo, removeTodo, setLight, newTodo, setNewTodo } = useTodo();
+  const { todo, addTodo, removeTodo, light, setLight, newTodo, setNewTodo } = useTodo();
 
   return (
-    <main>
-      <section className='banner'></section>
+    <main id={`${!light ? 'main_dark' : ''}`}>
+      <section className={`${!light ? 'banner_dark' : 'banner_light'}`}></section>
 
       <section>
         <div id='area'>
           <div className='header'>
             <p>TODO</p>
-            <img src={dark_theme} alt="theme" onClick={() => setLight(true)} />
+            <img src={light ? dark_theme : light_theme} alt="theme" onClick={() => setLight(!light)} />
           </div>
 
-          <div className='input'>
+          <div className='input' style={!light ? {backgroundColor: 'hsl(235, 24%, 19%)'} : {backgroundColor: 'white'}}>
             <input type="checkbox" name="" id="" />
-            <input type="text" placeholder='Create a new todo...' value={newTodo} onChange={(e) => setNewTodo(e.target.value)} onKeyDown={(e) => addTodo(e)} />
+            <input type="text" placeholder='Create a new todo...' style={!light ? {color: 'white'} : {color: 'black'}} value={newTodo} onChange={(e) => setNewTodo(e.target.value)} onKeyDown={(e) => addTodo(e)} />
           </div>
 
-          <div id='todoList'>
+          <div className={`${todo.length === 0 ? 'hidden' : 'todoList'}`} style={!light ? {backgroundColor: 'hsl(235, 24%, 19%)'} : {backgroundColor: 'hsl(0, 0%, 98%)'}}>
             {
               todo.map((t) => (
                 <div key={t.text} className='todo'>
@@ -50,8 +50,8 @@ const App: React.FC = () => {
               ))
             }
             
-            <div className='base'>
-              <p>5 items left</p>
+            <div className='base' style={!light? {backgroundColor: 'hsl(235, 24%, 19%)'} : {backgroundColor: 'hsl(0, 0%, 98%)'}}>
+              <p>{todo.length} items left</p>
               <div className='filter'>
                 <p>All</p>
                 <p>Active</p>
