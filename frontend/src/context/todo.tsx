@@ -71,9 +71,26 @@ export const TodoProvider: React.FC<Children> = ({ children }) => {
     const [light, setLight] = useState<boolean>(false)
     const [newTodo, setNewTodo] = useState<string>('');
 
-    const addTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const addTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            dispatch({ type: ACTIONS.ADD_TODO, payload: { text: newTodo, completed: false } });
+            try {
+                const res = await fetch('http://localhost:3000', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: newTodo, completed: false }),
+                });
+                if (!res.ok) {
+                    throw new Error("Failed to add todo to the database");
+                }    
+                const data = await res.json();
+                dispatch({ type: ACTIONS.ADD_TODO, payload: data });
+                // setNewTodo('');
+                // dispatch({ type: ACTIONS.ADD_TODO, payload: { text: newTodo, completed: false } });
+            } catch (error) {
+                console.log(error);
+            }
             setNewTodo('');
         }
     }

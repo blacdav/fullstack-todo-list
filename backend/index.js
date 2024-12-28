@@ -27,8 +27,9 @@ app.get('/', (req, res) => {
 })
 
 app.post("/", (req, res) => {
-  const data = req.body;
-  const todo = new Todos(data).save().then(() => {
+  const data = {...req.body};
+  const todo = new Todos(data);
+  todo.save().then(() => {
     console.log('added successfully')
     res.send('added successfully')
   });

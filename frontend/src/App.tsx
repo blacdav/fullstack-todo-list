@@ -6,12 +6,13 @@ import light_theme from './assets/icon-sun.svg'
 import remove_icon from './assets/icon-cross.svg'
 import './App.css'
 import { useTodo } from './context/todo'
+import { useEffect, useState } from 'react'
 
-// interface Todos {
-//   id?: number,
-//   text?: string,
-//   completed?: boolean,
-// }
+interface Todos {
+  id?: number,
+  text?: string,
+  completed?: boolean,
+}
 
 // interface TodoState {
 //   newTodo: string,
@@ -19,7 +20,18 @@ import { useTodo } from './context/todo'
 // }
 
 const App: React.FC = () => {
-  const { todo, addTodo, removeTodo, completeTodo, allTodo, activeTodos, completedTodos, light, setLight, newTodo, setNewTodo } = useTodo();
+  const [todo, setTodo] = useState<Todos[]>([]);
+  const { addTodo, removeTodo, completeTodo, allTodo, activeTodos, completedTodos, light, setLight, newTodo, setNewTodo } = useTodo();
+
+  useEffect(() => {
+    const getTodo = async() => {
+      const res = await fetch('https://localhost:3000/')
+      const data = await res.json();
+      console.log(data)
+      setTodo(data);
+    }
+    getTodo();
+  }, [])
 
   return (
     <main id={`${!light ? 'main_dark' : 'main_light'}`}>
