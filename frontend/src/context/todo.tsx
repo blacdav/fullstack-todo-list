@@ -45,7 +45,7 @@ const ACTIONS = {
 const todoAction = (todo: Todos[], action: Actions): Todos[] => {
     switch (action.type) {
         case ACTIONS.ADD_TODO:
-            return [action.payload!, ...todo]
+            return [...todo, action.payload!]
         case ACTIONS.REMOVE_TODO:
             return todo.filter((r) => r.text !== action.payload!.text);
         case ACTIONS.COMPLETE_TODO:

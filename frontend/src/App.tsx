@@ -25,13 +25,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const getTodo = async() => {
-      const res = await fetch('https://localhost:3000/')
+      const res = await fetch('http://localhost:3000/')
       const data = await res.json();
       console.log(data)
       setTodo(data);
     }
     getTodo();
-  }, [])
+  }, [addTodo])
 
   return (
     <main id={`${!light ? 'main_dark' : 'main_light'}`}>

@@ -22,18 +22,34 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello David');
+  Todos.find({}).then((result) => {
+    console.log(result);
+    res.send(result);
+  })
 })
 
 app.post("/", (req, res) => {
-  const data = {...req.body};
+  const data = req.body;
   const todo = new Todos(data);
   todo.save().then(() => {
     console.log('added successfully')
     res.send('added successfully')
   });
 });
+
+app.put('/:id', (req, res) => {
+  Todos.findByIdAndUpdate(req.params.id, req.body, {new: true}).then((result) => {
+    console.log('updated successfully')
+    res.send(result);
+  });
+});
+
+app.delete('/:id', (req, res) => {
+  Todos.findByIdAndDelete(req.params.id).then(() => {
+    console.log('deleted successfully')
+    res.send('deleted successfully')
+  });
+})
 
 app.listen(process.env.PORT, ()=> {
   console.log(`Server is running on port ${process.env.PORT}`);
