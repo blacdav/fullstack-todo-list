@@ -4,7 +4,7 @@ interface TodoContextType {
     todo: Todos[],
     addTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void,
     completeTodo: (text: string) => void,
-    removeTodo: (text: string) => void,
+    removeTodo: (id: string) => void,
     allTodo: () => void,
     activeTodos: () => void,
     completedTodos: () => void,
@@ -20,7 +20,7 @@ interface Children {
 }
 
 interface Todos {
-    id?: number,
+    id?: string,
     text?: string,
     completed?: boolean,
 }
@@ -47,7 +47,7 @@ const todoAction = (todo: Todos[], action: Actions): Todos[] => {
         case ACTIONS.ADD_TODO:
             return [...todo, action.payload!]
         case ACTIONS.REMOVE_TODO:
-            return todo.filter((r) => r.text !== action.payload!.text);
+            return todo.filter((r) => r.text !== action.payload!.id);
         case ACTIONS.COMPLETE_TODO:
             return todo.map((t) => t.text === action.payload!.text? {...t, completed:!t.completed } : t)
         case ACTIONS.ALL_TODOS:
@@ -74,7 +74,7 @@ export const TodoProvider: React.FC<Children> = ({ children }) => {
     const addTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             try {
-                const res = await fetch('http://localhost:3000', {
+                const res = await fetch(import.meta.env.VITE_API_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -95,8 +95,21 @@ export const TodoProvider: React.FC<Children> = ({ children }) => {
         }
     }
 
-    const removeTodo = (text: string) => {
-        dispatch({type: ACTIONS.REMOVE_TODO, payload: { text }})
+    const removeTodo = async (id: string) => {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            if (!res.ok) {
+                throw new Error("Failed to remove todo from the database");
+            }
+            dispatch({type: ACTIONS.REMOVE_TODO, payload: { id }})
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const completeTodo = (text: string) => {

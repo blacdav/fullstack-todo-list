@@ -9,7 +9,7 @@ import { useTodo } from './context/todo'
 import { useEffect, useState } from 'react'
 
 interface Todos {
-  _id?: number,
+  _id?: string,
   text?: string,
   completed?: boolean,
 }
@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const getTodo = async() => {
-      const res = await fetch('http://localhost:3000')
+      const res = await fetch(import.meta.env.VITE_API_URL)
       const data = await res.json();
       console.log(data)
       setTodo(data);
@@ -57,7 +57,7 @@ const App: React.FC = () => {
                     <input type="radio" name="todo" id="" value={t.text} />
                     <p>{t.text}</p>
                   </div>
-                  <img src={remove_icon} alt="remove icon" width={10} onClick={() => removeTodo(t.text!)} />
+                  <img src={remove_icon} alt="remove icon" width={10} onClick={() => removeTodo(t._id!)} />
                 </div>
               ))
             }
