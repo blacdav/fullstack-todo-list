@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Todos = require('./models/todos');
 
 
-mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to MongoDB')).catch((err) => console.error(err));
+mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to MongoDB')).catch((err) => console.error(`Error: ${err}`));
 
 const app = express();
 

@@ -9,7 +9,7 @@ import { useTodo } from './context/todo'
 import { useEffect, useState } from 'react'
 
 interface Todos {
-  id?: number,
+  _id?: number,
   text?: string,
   completed?: boolean,
 }
@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const getTodo = async() => {
-      const res = await fetch('http://localhost:3000/')
+      const res = await fetch('http://localhost:3000')
       const data = await res.json();
       console.log(data)
       setTodo(data);
@@ -52,7 +52,7 @@ const App: React.FC = () => {
           <div className={`${todo.length === 0 ? 'hidden' : 'todoList'}`} style={!light ? {backgroundColor: 'hsl(235, 24%, 19%)'} : {backgroundColor: 'hsl(0, 0%, 98%)'}}>
             {
               todo.map((t) => (
-                <div key={t.text} className='todo' onClick={() => completeTodo(t.text!)}>
+                <div key={t._id} className='todo' onClick={() => completeTodo(t.text!)}>
                   <div>
                     <input type="radio" name="todo" id="" value={t.text} />
                     <p>{t.text}</p>
