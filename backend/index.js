@@ -23,14 +23,16 @@ app.get('/', (req, res) => {
     console.log(result);
     res.send(result);
   })
+}).catch((err) => {
+  console.error(err);
 })
 
 app.post("/", (req, res) => {
   const data = req.body;
   const todo = new Todos(data);
-  todo.save().then(() => {
+  todo.save().then((result) => {
     console.log('added successfully')
-    res.send('added successfully')
+    res.send(result)
   });
 });
 
